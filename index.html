@@ -380,9 +380,42 @@ a:focus-visible,button:focus-visible{outline:2px solid #39E6D0;outline-offset:3p
       <span data-i18n="get.apk">Pobierz APK (Android)</span>
     </a>
     <p class="mt-5 text-xs text-haze" data-i18n="get.note">Wkrótce także w alternatywnych sklepach z aplikacjami.</p>
-    <p class="mt-2 text-xs">
-      <a href="https://github.com/mql4mql5developer-bit/stocky-web/releases" class="text-haze hover:text-mint underline underline-offset-2" data-i18n="get.all">Wszystkie wersje i sumy kontrolne</a>
-    </p>
+
+    <!-- Weryfikacja pliku — wszystko na stronie, bez wychodzenia na zewnątrz -->
+    <details class="mt-8 max-w-lg mx-auto text-left glass rounded-2xl overflow-hidden group">
+      <summary class="cursor-pointer select-none px-5 py-4 text-sm text-haze hover:text-white transition flex items-center justify-between">
+        <span data-i18n="verify.title">Sprawdź autentyczność pliku</span>
+        <span class="text-mint transition-transform group-open:rotate-45 text-lg leading-none">+</span>
+      </summary>
+
+      <div class="px-5 pb-5 space-y-4 border-t border-white/5 pt-4">
+        <p class="text-xs text-haze leading-relaxed" data-i18n="verify.desc">
+          Suma kontrolna to odcisk palca pliku. Jeśli policzona przez Ciebie zgadza się z poniższą, plik jest oryginalny i nikt go nie podmienił.
+        </p>
+
+        <div>
+          <p class="text-[11px] uppercase tracking-widest text-haze mb-2">
+            <span data-i18n="verify.file">Plik</span>: <span class="text-slate-300 font-mono normal-case tracking-normal">stocky.apk</span>
+            <span class="mx-1">·</span>
+            <span data-i18n="verify.version">Wersja</span>: <span class="text-slate-300 font-mono normal-case tracking-normal">1.0.0</span>
+          </p>
+          <p class="text-[11px] uppercase tracking-widest text-haze mb-2">SHA-256</p>
+          <div class="flex items-stretch gap-2">
+            <!-- ▶ WKLEJ TU SWOJĄ SUMĘ SHA-256 -->
+            <code id="shaVal" class="flex-1 font-mono text-[11px] sm:text-xs text-mint bg-white/5 rounded-xl px-3 py-2.5 break-all leading-relaxed">TUTAJ_WKLEJ_SWOJA_SUME_SHA256</code>
+            <button id="copySha" type="button" class="shrink-0 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs text-white transition" data-i18n="verify.copy">Kopiuj</button>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <p class="text-[11px] uppercase tracking-widest text-haze" data-i18n="verify.how">Jak sprawdzić</p>
+          <p class="text-xs text-haze">Windows <span class="text-slate-400">(wiersz poleceń)</span></p>
+          <code class="block font-mono text-[11px] sm:text-xs text-slate-300 bg-white/5 rounded-xl px-3 py-2.5 break-all">certutil -hashfile stocky.apk SHA256</code>
+          <p class="text-xs text-haze pt-1">macOS / Linux <span class="text-slate-400">(terminal)</span></p>
+          <code class="block font-mono text-[11px] sm:text-xs text-slate-300 bg-white/5 rounded-xl px-3 py-2.5 break-all">shasum -a 256 stocky.apk</code>
+        </div>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -397,7 +430,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #39E6D0;outline-offset:3p
 
     <form id="contactForm" class="reveal glass ring-grad rounded-3xl p-6 sm:p-8 space-y-5" method="POST">
       <!-- ▶ WKLEJ TU SWÓJ KLUCZ z web3forms.com (jest jawny, może być publiczny) -->
-      <input type="hidden" name="access_key" value="9e79d1e8-47f4-49cd-9c05-89b23e4b34a3">
+      <input type="hidden" name="access_key" value="TUTAJ_WKLEJ_SWOJ_ACCESS_KEY">
       <input type="hidden" name="subject" value="Stocky — wiadomość ze strony">
       <input type="hidden" name="from_name" value="Strona Stocky">
       <!-- pułapka na boty: człowiek tego nie widzi i nie zaznaczy -->
@@ -473,7 +506,7 @@ pl:{
  "contact.sub":"Pytanie, pomysł, błąd? Wiadomość trafi prosto na moją skrzynkę.",
  "contact.email_l":"Twój e-mail (do odpowiedzi)","contact.msg_l":"Wiadomość",
  "contact.send":"Wyślij wiadomość","contact.sending":"Wysyłam…","contact.ok":"Dziękuję! Wiadomość została wysłana.","contact.err":"Nie udało się wysłać. Spróbuj ponownie lub napisz na adres poniżej.","contact.fallback":"Formularz nie działa? Napisz wprost:",
- "get.all":"Wszystkie wersje i sumy kontrolne",
+ "verify.title":"Sprawdź autentyczność pliku","verify.desc":"Suma kontrolna to odcisk palca pliku. Jeśli policzona przez Ciebie zgadza się z poniższą, plik jest oryginalny i nikt go nie podmienił.","verify.file":"Plik","verify.version":"Wersja","verify.how":"Jak sprawdzić","verify.copy":"Kopiuj","verify.copied":"Skopiowano",
  "footer.disclaimer":"Stocky to narzędzie pomocnicze do śledzenia zapasów i nie zastępuje porady medycznej ani zaleceń lekarza."
 },
 en:{
@@ -505,7 +538,7 @@ en:{
  "contact.sub":"A question, an idea, a bug? Your message goes straight to my inbox.",
  "contact.email_l":"Your e-mail (for the reply)","contact.msg_l":"Message",
  "contact.send":"Send message","contact.sending":"Sending…","contact.ok":"Thank you! Your message has been sent.","contact.err":"Sending failed. Try again or write to the address below.","contact.fallback":"Form not working? Write directly:",
- "get.all":"All versions and checksums",
+ "verify.title":"Verify the file is authentic","verify.desc":"A checksum is the file's fingerprint. If the one you compute matches the one below, the file is original and nobody has tampered with it.","verify.file":"File","verify.version":"Version","verify.how":"How to check","verify.copy":"Copy","verify.copied":"Copied",
  "footer.disclaimer":"Stocky is a helper tool for tracking supplies and does not replace medical advice or your doctor's guidance."
 },
 de:{
@@ -537,7 +570,7 @@ de:{
  "contact.sub":"Eine Frage, eine Idee, ein Fehler? Deine Nachricht landet direkt in meinem Postfach.",
  "contact.email_l":"Deine E-Mail (für die Antwort)","contact.msg_l":"Nachricht",
  "contact.send":"Nachricht senden","contact.sending":"Senden…","contact.ok":"Danke! Deine Nachricht wurde gesendet.","contact.err":"Senden fehlgeschlagen. Versuch es erneut oder schreib an die Adresse unten.","contact.fallback":"Formular funktioniert nicht? Schreib direkt:",
- "get.all":"Alle Versionen und Prüfsummen",
+ "verify.title":"Datei auf Echtheit prüfen","verify.desc":"Eine Prüfsumme ist der Fingerabdruck der Datei. Stimmt die von dir berechnete mit der unten überein, ist die Datei original und wurde nicht verändert.","verify.file":"Datei","verify.version":"Version","verify.how":"So prüfst du","verify.copy":"Kopieren","verify.copied":"Kopiert",
  "footer.disclaimer":"Stocky ist ein Hilfswerkzeug zur Bestandsverfolgung und ersetzt keine medizinische Beratung oder ärztliche Anweisungen."
 },
 es:{
@@ -569,7 +602,7 @@ es:{
  "contact.sub":"¿Una pregunta, una idea, un error? Tu mensaje llega directo a mi buzón.",
  "contact.email_l":"Tu correo (para la respuesta)","contact.msg_l":"Mensaje",
  "contact.send":"Enviar mensaje","contact.sending":"Enviando…","contact.ok":"¡Gracias! Tu mensaje ha sido enviado.","contact.err":"No se pudo enviar. Inténtalo de nuevo o escribe a la dirección de abajo.","contact.fallback":"¿El formulario no funciona? Escribe directamente:",
- "get.all":"Todas las versiones y sumas de verificación",
+ "verify.title":"Comprueba la autenticidad del archivo","verify.desc":"La suma de verificación es la huella del archivo. Si la que calculas coincide con la de abajo, el archivo es original y nadie lo ha alterado.","verify.file":"Archivo","verify.version":"Versión","verify.how":"Cómo comprobarlo","verify.copy":"Copiar","verify.copied":"Copiado",
  "footer.disclaimer":"Stocky es una herramienta de apoyo para el control de existencias y no sustituye el consejo médico ni las indicaciones de tu médico."
 }
 };
@@ -692,6 +725,17 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   applyLang(lang);
 })();
 document.getElementById('year').textContent=new Date().getFullYear();
+
+/* ===== kopiowanie sumy kontrolnej ===== */
+const copyBtn=document.getElementById('copySha');
+copyBtn.addEventListener('click',async()=>{
+  const val=document.getElementById('shaVal').textContent.trim();
+  const dict=I18N[LANG]||I18N.pl;
+  try{ await navigator.clipboard.writeText(val); }
+  catch(e){ /* starsze przeglądarki: zaznacz tekst ręcznie */ }
+  copyBtn.textContent=dict['verify.copied'];
+  setTimeout(()=>copyBtn.textContent=dict['verify.copy'],1800);
+});
 
 /* ===== formularz kontaktowy (Web3Forms, wysyłka w tle) ===== */
 const cf=document.getElementById('contactForm');
