@@ -373,12 +373,16 @@ a:focus-visible,button:focus-visible{outline:2px solid #39E6D0;outline-offset:3p
     <img src="assets/logo.png" alt="Stocky" class="w-24 h-24 rounded-3xl mx-auto mb-7 shadow-2xl">
     <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight mb-4" data-i18n="get.title">Zapas nigdy więcej Cię nie zaskoczy</h2>
     <p class="text-haze max-w-lg mx-auto mb-10" data-i18n="get.sub">Pobierz Stocky na Androida i dodaj pierwszy kafelek w minutę.</p>
-    <!-- ▶ podmień href na link do APK (GitHub Releases) -->
-    <a href="#" class="grad-bg text-abyss font-semibold px-8 py-4 rounded-full hover:opacity-90 transition inline-flex items-center gap-2 text-lg">
+    <!-- ▶ Link zawsze wskazuje NAJNOWSZE wydanie. Warunek: plik APK w każdym Release nazywaj "stocky.apk" -->
+    <a href="https://github.com/mql4mql5developer-bit/stocky-web/releases/latest/download/stocky.apk"
+       class="grad-bg text-abyss font-semibold px-8 py-4 rounded-full hover:opacity-90 transition inline-flex items-center gap-2 text-lg">
       <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
       <span data-i18n="get.apk">Pobierz APK (Android)</span>
     </a>
     <p class="mt-5 text-xs text-haze" data-i18n="get.note">Wkrótce także w alternatywnych sklepach z aplikacjami.</p>
+    <p class="mt-2 text-xs">
+      <a href="https://github.com/mql4mql5developer-bit/stocky-web/releases" class="text-haze hover:text-mint underline underline-offset-2" data-i18n="get.all">Wszystkie wersje i sumy kontrolne</a>
+    </p>
   </div>
 </section>
 
@@ -464,6 +468,7 @@ pl:{
  "contact.email_l":"Twój e-mail (do odpowiedzi)","contact.msg_l":"Wiadomość",
  "contact.send":"Wyślij wiadomość","contact.sent":"Dziękuję! Wiadomość została wysłana.",
  "contact.note":"Po wysłaniu zobaczysz krótkie zabezpieczenie przed spamem i wrócisz na tę stronę.",
+ "get.all":"Wszystkie wersje i sumy kontrolne",
  "footer.disclaimer":"Stocky to narzędzie pomocnicze do śledzenia zapasów i nie zastępuje porady medycznej ani zaleceń lekarza."
 },
 en:{
@@ -496,6 +501,7 @@ en:{
  "contact.email_l":"Your e-mail (for the reply)","contact.msg_l":"Message",
  "contact.send":"Send message","contact.sent":"Thank you! Your message has been sent.",
  "contact.note":"After sending you'll pass a quick spam check and return to this page.",
+ "get.all":"All versions and checksums",
  "footer.disclaimer":"Stocky is a helper tool for tracking supplies and does not replace medical advice or your doctor's guidance."
 },
 de:{
@@ -528,6 +534,7 @@ de:{
  "contact.email_l":"Deine E-Mail (für die Antwort)","contact.msg_l":"Nachricht",
  "contact.send":"Nachricht senden","contact.sent":"Danke! Deine Nachricht wurde gesendet.",
  "contact.note":"Nach dem Senden folgt eine kurze Spam-Prüfung, dann kehrst du hierher zurück.",
+ "get.all":"Alle Versionen und Prüfsummen",
  "footer.disclaimer":"Stocky ist ein Hilfswerkzeug zur Bestandsverfolgung und ersetzt keine medizinische Beratung oder ärztliche Anweisungen."
 },
 es:{
@@ -560,6 +567,7 @@ es:{
  "contact.email_l":"Tu correo (para la respuesta)","contact.msg_l":"Mensaje",
  "contact.send":"Enviar mensaje","contact.sent":"¡Gracias! Tu mensaje ha sido enviado.",
  "contact.note":"Tras enviar verás una breve comprobación antispam y volverás a esta página.",
+ "get.all":"Todas las versiones y sumas de verificación",
  "footer.disclaimer":"Stocky es una herramienta de apoyo para el control de existencias y no sustituye el consejo médico ni las indicaciones de tu médico."
 }
 };
