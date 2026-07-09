@@ -386,7 +386,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #39E6D0;outline-offset:3p
   </div>
 </section>
 
-<!-- ============ KONTAKT (formularz) ============ -->
+<!-- ============ KONTAKT (formularz — Web3Forms) ============ -->
 <section id="kontakt" class="px-5 py-24 md:py-32 border-t border-white/5">
   <div class="max-w-xl mx-auto">
     <div class="reveal text-center mb-10">
@@ -395,15 +395,13 @@ a:focus-visible,button:focus-visible{outline:2px solid #39E6D0;outline-offset:3p
       <p class="text-haze" data-i18n="contact.sub">Pytanie, pomysł, błąd? Wiadomość trafi prosto na moją skrzynkę.</p>
     </div>
 
-    <div id="sentOk" class="hidden mb-6 glass rounded-2xl p-4 text-center text-mint text-sm" data-i18n="contact.sent">Dziękuję! Wiadomość została wysłana.</div>
-
-    <form class="reveal glass ring-grad rounded-3xl p-6 sm:p-8 space-y-5"
-          action="https://formsubmit.co/mql4mql5developer@gmail.com" method="POST">
-      <!-- ustawienia FormSubmit (niewidoczne pola) -->
-      <input type="hidden" name="_subject" value="Stocky — wiadomość ze strony">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_next" value="https://mql4mql5developer-bit.github.io/stocky-web/?sent=1#kontakt">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+    <form id="contactForm" class="reveal glass ring-grad rounded-3xl p-6 sm:p-8 space-y-5" method="POST">
+      <!-- ▶ WKLEJ TU SWÓJ KLUCZ z web3forms.com (jest jawny, może być publiczny) -->
+      <input type="hidden" name="access_key" value="9e79d1e8-47f4-49cd-9c05-89b23e4b34a3">
+      <input type="hidden" name="subject" value="Stocky — wiadomość ze strony">
+      <input type="hidden" name="from_name" value="Strona Stocky">
+      <!-- pułapka na boty: człowiek tego nie widzi i nie zaznaczy -->
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1">
 
       <label class="block">
         <span class="block text-sm text-haze mb-2" data-i18n="contact.email_l">Twój e-mail (do odpowiedzi)</span>
@@ -417,9 +415,17 @@ a:focus-visible,button:focus-visible{outline:2px solid #39E6D0;outline-offset:3p
                   class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-mint/60 resize-y"></textarea>
       </label>
 
-      <button type="submit" class="grad-bg text-abyss font-semibold w-full py-3.5 rounded-full hover:opacity-90 transition" data-i18n="contact.send">Wyślij wiadomość</button>
-      <p class="text-[11px] text-haze text-center" data-i18n="contact.note">Po wysłaniu zobaczysz krótkie zabezpieczenie przed spamem i wrócisz na tę stronę.</p>
+      <button id="sendBtn" type="submit" class="grad-bg text-abyss font-semibold w-full py-3.5 rounded-full hover:opacity-90 transition disabled:opacity-60" data-i18n="contact.send">Wyślij wiadomość</button>
+
+      <!-- komunikat po wysyłce (pokazywany przez JavaScript) -->
+      <div id="formMsg" class="hidden rounded-2xl p-4 text-center text-sm"></div>
     </form>
+
+    <!-- LINK ZAPASOWY — ukryty; JavaScript pokaże go tylko, gdy wysyłka zawiedzie -->
+    <p id="fallback" class="hidden mt-6 text-center text-xs text-haze">
+      <span data-i18n="contact.fallback">Formularz nie działa? Napisz wprost:</span>
+      <a href="mailto:mql4mql5developer@gmail.com?subject=Stocky" class="text-mint hover:underline">mql4mql5developer@gmail.com</a>
+    </p>
   </div>
 </section>
 
@@ -466,8 +472,7 @@ pl:{
  "contact.eyebrow":"Kontakt","contact.title":"Napisz do autora",
  "contact.sub":"Pytanie, pomysł, błąd? Wiadomość trafi prosto na moją skrzynkę.",
  "contact.email_l":"Twój e-mail (do odpowiedzi)","contact.msg_l":"Wiadomość",
- "contact.send":"Wyślij wiadomość","contact.sent":"Dziękuję! Wiadomość została wysłana.",
- "contact.note":"Po wysłaniu zobaczysz krótkie zabezpieczenie przed spamem i wrócisz na tę stronę.",
+ "contact.send":"Wyślij wiadomość","contact.sending":"Wysyłam…","contact.ok":"Dziękuję! Wiadomość została wysłana.","contact.err":"Nie udało się wysłać. Spróbuj ponownie lub napisz na adres poniżej.","contact.fallback":"Formularz nie działa? Napisz wprost:",
  "get.all":"Wszystkie wersje i sumy kontrolne",
  "footer.disclaimer":"Stocky to narzędzie pomocnicze do śledzenia zapasów i nie zastępuje porady medycznej ani zaleceń lekarza."
 },
@@ -499,8 +504,7 @@ en:{
  "contact.eyebrow":"Contact","contact.title":"Write to the author",
  "contact.sub":"A question, an idea, a bug? Your message goes straight to my inbox.",
  "contact.email_l":"Your e-mail (for the reply)","contact.msg_l":"Message",
- "contact.send":"Send message","contact.sent":"Thank you! Your message has been sent.",
- "contact.note":"After sending you'll pass a quick spam check and return to this page.",
+ "contact.send":"Send message","contact.sending":"Sending…","contact.ok":"Thank you! Your message has been sent.","contact.err":"Sending failed. Try again or write to the address below.","contact.fallback":"Form not working? Write directly:",
  "get.all":"All versions and checksums",
  "footer.disclaimer":"Stocky is a helper tool for tracking supplies and does not replace medical advice or your doctor's guidance."
 },
@@ -532,8 +536,7 @@ de:{
  "contact.eyebrow":"Kontakt","contact.title":"Schreib dem Autor",
  "contact.sub":"Eine Frage, eine Idee, ein Fehler? Deine Nachricht landet direkt in meinem Postfach.",
  "contact.email_l":"Deine E-Mail (für die Antwort)","contact.msg_l":"Nachricht",
- "contact.send":"Nachricht senden","contact.sent":"Danke! Deine Nachricht wurde gesendet.",
- "contact.note":"Nach dem Senden folgt eine kurze Spam-Prüfung, dann kehrst du hierher zurück.",
+ "contact.send":"Nachricht senden","contact.sending":"Senden…","contact.ok":"Danke! Deine Nachricht wurde gesendet.","contact.err":"Senden fehlgeschlagen. Versuch es erneut oder schreib an die Adresse unten.","contact.fallback":"Formular funktioniert nicht? Schreib direkt:",
  "get.all":"Alle Versionen und Prüfsummen",
  "footer.disclaimer":"Stocky ist ein Hilfswerkzeug zur Bestandsverfolgung und ersetzt keine medizinische Beratung oder ärztliche Anweisungen."
 },
@@ -565,8 +568,7 @@ es:{
  "contact.eyebrow":"Contacto","contact.title":"Escribe al autor",
  "contact.sub":"¿Una pregunta, una idea, un error? Tu mensaje llega directo a mi buzón.",
  "contact.email_l":"Tu correo (para la respuesta)","contact.msg_l":"Mensaje",
- "contact.send":"Enviar mensaje","contact.sent":"¡Gracias! Tu mensaje ha sido enviado.",
- "contact.note":"Tras enviar verás una breve comprobación antispam y volverás a esta página.",
+ "contact.send":"Enviar mensaje","contact.sending":"Enviando…","contact.ok":"¡Gracias! Tu mensaje ha sido enviado.","contact.err":"No se pudo enviar. Inténtalo de nuevo o escribe a la dirección de abajo.","contact.fallback":"¿El formulario no funciona? Escribe directamente:",
  "get.all":"Todas las versiones y sumas de verificación",
  "footer.disclaimer":"Stocky es una herramienta de apoyo para el control de existencias y no sustituye el consejo médico ni las indicaciones de tu médico."
 }
@@ -690,11 +692,44 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   applyLang(lang);
 })();
 document.getElementById('year').textContent=new Date().getFullYear();
-if(new URLSearchParams(location.search).has('sent')){
-  const ok=document.getElementById('sentOk');
-  ok.classList.remove('hidden');
-  setTimeout(()=>ok.scrollIntoView({block:'center',behavior:'smooth'}),300);
+
+/* ===== formularz kontaktowy (Web3Forms, wysyłka w tle) ===== */
+const cf=document.getElementById('contactForm');
+const msgBox=document.getElementById('formMsg');
+const sendBtn=document.getElementById('sendBtn');
+const fallback=document.getElementById('fallback');
+function t(k){return (I18N[LANG]||I18N.pl)[k];}
+function setMsg(text,ok){
+  msgBox.textContent=text;
+  msgBox.className='rounded-2xl p-4 text-center text-sm '+(ok?'text-mint bg-mint/10':'text-coral bg-coral/10');
 }
+function showFallback(show){
+  // link awaryjny pojawia się tylko po nieudanej wysyłce
+  fallback.classList.toggle('hidden',!show);
+  if(show) fallback.classList.add('reveal','in');
+}
+cf.addEventListener('submit',async e=>{
+  e.preventDefault();                       // nie przeładowuj strony
+  const data=Object.fromEntries(new FormData(cf));
+  sendBtn.disabled=true;
+  showFallback(false);                      // schowaj link z poprzedniej próby
+  setMsg(t('contact.sending'),true);
+  try{
+    const r=await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(data)
+    });
+    const j=await r.json();
+    if(r.ok&&j.success){ setMsg(t('contact.ok'),true); cf.reset(); }
+    else { setMsg(t('contact.err'),false); showFallback(true); }
+  }catch(err){
+    setMsg(t('contact.err'),false);         // np. serwer nie odpowiada
+    showFallback(true);
+  }finally{
+    sendBtn.disabled=false;
+  }
+});
 </script>
 </body>
 </html>
